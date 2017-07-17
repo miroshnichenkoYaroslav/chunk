@@ -3,12 +3,12 @@
 namespace App\Adapters\Chunks;
 
 /**
- * Адаптер для нормальной ссылки.
+ * Адаптер для мажорной ссылки.
  */
-class NormalLink extends Chunk
+class MajorLink extends Chunk
 {
     /**
-     *  Адаптер для нормальной ссылки, формирует json, и записывает в БД.
+     *  Адаптер для мажорной ссылки, формирует json, и записывает в БД.
      *
      * @param array $options
      *
@@ -16,15 +16,15 @@ class NormalLink extends Chunk
      */
     public static function fillJson(array $options): void
     {
-        $options['properties'] = NormalLink::complementArray($options['properties']);
+        $options['properties'] = MajorLink::complementArray($options['properties']);
 
-        $options['properties'] = NormalLink::reformatProperties($options['properties']);
+        $options['properties'] = MajorLink::reformatProperties($options['properties']);
 
         //TODO return|send (json_encode($options) in API
     }
 
     /**
-     * Переводить значение в двоичную строку, разбивает строку по символу,
+     * Переводит значение в двоичную строку, разбивает строку по символу,
      * переворачивает массив.
      *
      * @param string $properties
@@ -49,9 +49,8 @@ class NormalLink extends Chunk
     public static function reformatProperties(array $properties): array
     {
         return [
-            'dataPublish' => $properties[0],
+            'datePublish' => $properties[0],
             'addToContent' => $properties[1],
-            'onlyFirstPart' => $properties[2]
         ];
     }
 
