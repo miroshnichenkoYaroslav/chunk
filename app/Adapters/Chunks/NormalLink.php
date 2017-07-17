@@ -8,7 +8,8 @@ namespace App\Adapters\Chunks;
 class NormalLink extends Chunk
 {
     /**
-     *  Адаптер для нормальной ссылки, формирует json, и записывает в БД.
+     *  Адаптер для чанка(умного элемента), который формирует json,
+     *  записывая данные в БД.
      *
      * @param array $options
      *
@@ -24,7 +25,8 @@ class NormalLink extends Chunk
     }
 
     /**
-     * Переводить значение в двоичную строку
+     * Переводит значение в двоичную строку, разбивает строку по символу,
+     * переворачивает массив.
      *
      * @param string $properties
      *
@@ -33,12 +35,7 @@ class NormalLink extends Chunk
     public static function complementArray(string $properties): array
     {
         $properties = base_convert($properties, 10, 2);
-        $properties = str_split($properties);
-        $properties = array_reverse($properties);
-
-        for ($i = 0; $i < 10; $i++) {
-            $properties[$i] =  $properties[$i] ?? 0;
-        }
+        $properties = array_reverse(str_split($properties));
 
         return $properties;
     }
@@ -53,7 +50,7 @@ class NormalLink extends Chunk
     public static function reformatProperties(array $properties): array
     {
         return [
-            'dataPublish' => $properties[0],
+            'datePublish' => $properties[0],
             'addToContent' => $properties[1],
             'onlyFirstPart' => $properties[2]
         ];
