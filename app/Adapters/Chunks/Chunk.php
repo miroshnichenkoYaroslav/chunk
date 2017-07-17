@@ -1,7 +1,14 @@
 <?php
+
+namespace App\Adapters\Chunks;
+
 /**
- * Created by PhpStorm.
- * User: yaroslav
- * Date: 14.07.17
- * Time: 14:31
+ * Класс, в котором реализован метод . //TODO метод
  */
+abstract class Chunk
+{
+    public function formationJson()
+    {
+        //TODO формируется json из массива, кроме $masFlags
+    }
+}
