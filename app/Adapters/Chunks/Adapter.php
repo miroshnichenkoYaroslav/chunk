@@ -22,16 +22,15 @@ class Adapter
      * Adapter constructor.
      * Переданные данные передаются в метод dataProcessing.
      *
-     * @param string $page
+     * @param string $chunk
      */
-    public function __construct($page = null)
+    public function __construct($chunk = null)
     {
-        if ($page === null) {
+        if ($chunk === null) {
             throw new InvalidArgumentException('Переданны неверные данные.');
         }
 
-        $this->dataProcessing($this->retrievePageData($page));
-
+        $this->dataProcessing($this->retrievePageData($chunk));
     }
 
     /**
@@ -98,30 +97,30 @@ class Adapter
     /**
      * Передает параметры чанков в конкретный адаптер,
      * в зависимости от типа чанка.
+     *
+     * @return void
      */
-    public function transferToTheAdapter()
+    public function transferToTheAdapter(): void
     {
-        $type = $this->container[1];
-
         $this->reformatContainer();
+        if ($this->container['type'] === '0') {
+            NormalLink::fillJson($this->container);
 
-        if ($type === 0) {
+        } elseif ($this->container['type'] === '1') {
 
-        } elseif ($type === 1) {
+        } elseif ($this->container['type'] === '2') {
 
-        } elseif ($type === 2) {
+        } elseif ($this->container['type'] === '3') {
 
-        } elseif ($type === 3) {
+        } elseif ($this->container['type'] === '4') {
 
-        } elseif ($type === 4) {
+        } elseif ($this->container['type'] === '5') {
 
-        } elseif ($type === 5) {
+        } elseif ($this->container['type'] === '6') {
 
-        } elseif ($type === 6) {
+        } elseif ($this->container['type'] === '7') {
 
-        } elseif ($type === 7) {
-
-        } elseif ($type === 8) {
+        } elseif ($this->container['type'] === '8') {
 
         } else {
             //TODO userLink => $type = -1
@@ -138,7 +137,7 @@ class Adapter
         $this->container = [
             'pageId' => $this->container[0],
             'type' => $this->container[1],
-            'property' => $this->container[2],
+            'properties' => $this->container[2],
             'nested' => $this->container[3],
             'allLevelsDown' => $this->container[4],
             'rowsLimit' => $this->container[5],
