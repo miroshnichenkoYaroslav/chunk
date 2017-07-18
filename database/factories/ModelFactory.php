@@ -22,3 +22,35 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Chunk::class, function (Faker\Generator $faker) {
+   return [
+       'id' => '0481E31883BA4F199ABB5DD19A4B0169',
+       'site_id' => '907',
+       'type' => 1,
+       'body' => "0538681A07E04232B31995A17FBC1CBB
+1
+91
+1
+0
+0
+0
+0
+0
+0
+13.05.2013
+13.05.2013
+1
+2
+0
+0
+0
+0
+0
+
+
+
+
+
+"];
+});
