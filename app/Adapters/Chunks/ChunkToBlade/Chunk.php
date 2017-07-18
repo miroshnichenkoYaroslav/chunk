@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Adapters\Chunks;
+namespace App\Adapters\Chunks\ChunkToBlade;
 
 /**
  * Класс, в котором реализован метод fillJson.
