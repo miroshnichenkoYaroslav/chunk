@@ -15,11 +15,11 @@ use Illuminate\Database\Eloquent\Model;
 class Chunk extends Model
 {
     /**
-     * Таблица для работы с моделью.
+     * Отлкючена работа со временем в таблице.
      *
-     * @var string
+     * @var bool
      */
-    protected $table = 'chunk';
+    public $timestamps = false;
 
     /**
      * переменные для работы с чанками
