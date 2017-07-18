@@ -14,7 +14,7 @@ class Sitemap extends Chunk
      *
      * @return void
      */
-    public static function fillJson(array $options): void
+    public function fillJson(array $options): void
     {
         $options['properties'] = Sitemap::complementArray($options['properties']);
 
@@ -31,7 +31,7 @@ class Sitemap extends Chunk
      *
      * @return array
      */
-    public static function complementArray(string $properties): array
+    public function complementArray(string $properties): array
     {
         $properties = base_convert($properties, 10, 2);
         $properties = array_reverse(str_split($properties));
@@ -46,7 +46,7 @@ class Sitemap extends Chunk
      *
      * @return array
      */
-    public static function reformatProperties(array $properties): array
+    public function reformatProperties(array $properties): array
     {
         return [
             'description'    => $properties[0],

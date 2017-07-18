@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Adapters\Chunks;
+namespace App\Adapters\Chunks\ChunkToBlade;
 
 /**
- * Адаптер для нормальной ссылки.
+ * Адаптер для нормальной и мажорной ссылок.
  */
-class NormalLink extends Chunk
+class Link extends Chunk
 {
+
     /**
      *  Адаптер для чанка(умного элемента), который формирует json,
      *  записывая данные в БД.
@@ -15,13 +16,13 @@ class NormalLink extends Chunk
      *
      * @return void
      */
-    public static function fillJson(array $options): void
+    public function fillJson(array $options): void
     {
-        $options['properties'] = NormalLink::complementArray($options['properties']);
+        $options['properties'] = $this->complementArray($options['properties']);
 
-        $options['properties'] = NormalLink::reformatProperties($options['properties']);
+        $options['properties'] = $this->reformatProperties($options['properties']);
 
-        //TODO return|send (json_encode($options) in API
+        //TODO генерировать html из готового массива.
     }
 
     /**
@@ -32,7 +33,7 @@ class NormalLink extends Chunk
      *
      * @return array
      */
-    public static function complementArray(string $properties): array
+    public function complementArray(string $properties): array
     {
         $properties = base_convert($properties, 10, 2);
         $properties = array_reverse(str_split($properties));
@@ -45,16 +46,21 @@ class NormalLink extends Chunk
      *
      * @param array $properties
      *
-     * @return array
+     * @return array $properties
      */
-    public static function reformatProperties(array $properties): array
+    public function reformatProperties(array $properties): array
     {
         return [
             'datePublish' => $properties[0],
             'addToContent' => $properties[1],
-            'onlyFirstPart' => $properties[2]
+            'onlyFirstPart' => $properties[2],
+            'not' => [
+                $properties[3],
+                $properties[4],
+                $properties[5],
+                $properties[6]
+            ]
         ];
     }
-
 
 }

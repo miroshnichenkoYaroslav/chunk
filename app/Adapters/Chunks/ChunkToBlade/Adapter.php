@@ -3,7 +3,6 @@
 namespace App\Adapters\Chunks;
 
 use App\Chunk;
-use Prophecy\Doubler\LazyDouble;
 use Psr\Log\InvalidArgumentException;
 
 /**
@@ -85,7 +84,6 @@ class Adapter
      */
     public function fillContainer($body): void
     {
-        //Разбивает строку по '\r\n'.
         $token = strtok($body, "\r\n");
 
         for ($i = 0; $token != ''; $i++) {
