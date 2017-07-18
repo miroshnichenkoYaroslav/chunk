@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Chunk;
 use App\Thread;
 use Illuminate\Http\Request;
 
-class ThreadController extends Controller
+class ChunksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -81,5 +82,10 @@ class ThreadController extends Controller
     public function destroy(Thread $thread)
     {
         //
+    }
+
+    public function test(Chunk $chunk)
+    {
+
     }
 }
