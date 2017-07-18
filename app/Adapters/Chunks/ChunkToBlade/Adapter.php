@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Adapters\Chunks;
+namespace App\Adapters\Chunks\ChunkToBlade;
 
 use App\Chunk;
 use Psr\Log\InvalidArgumentException;
