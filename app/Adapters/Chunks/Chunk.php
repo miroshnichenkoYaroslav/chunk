@@ -15,7 +15,7 @@ abstract class Chunk
      *
      * @return void
      */
-    abstract public static function fillJson(array $options): void;
+    abstract public function fillJson(array $options): void;
 
     /**
      * Переводит значение в двоичную строку, разбивает строку по символу,
@@ -25,7 +25,7 @@ abstract class Chunk
      *
      * @return array
      */
-    abstract public static function complementArray(string $properties): array;
+    abstract public function complementArray(string $properties): array;
 
     /**
      * Формирует ассоциативный массив.
@@ -34,5 +34,5 @@ abstract class Chunk
      *
      * @return array
      */
-    abstract public static function reformatProperties(array $properties): array;
+    abstract public function reformatProperties(array $properties): array;
 }
