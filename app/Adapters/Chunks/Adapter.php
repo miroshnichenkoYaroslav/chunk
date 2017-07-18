@@ -3,6 +3,7 @@
 namespace App\Adapters\Chunks;
 
 use App\Chunk;
+use Prophecy\Doubler\LazyDouble;
 use Psr\Log\InvalidArgumentException;
 
 /**
@@ -104,19 +105,29 @@ class Adapter
     {
         $this->reformatContainer();
         if ($this->container['type'] === '0') {
-            NormalLink::fillJson($this->container);
+
+            $adapter = new Link();
+            $adapter->fillJson($this->container);
 
         } elseif ($this->container['type'] === '1') {
 
+            $adapter = new Link();
+            $adapter->fillJson($this->container);
+
         } elseif ($this->container['type'] === '2') {
+            PageContents::fillJson($this->container);
 
         } elseif ($this->container['type'] === '3') {
+            //NormalLink::fillJson($this->container);
 
         } elseif ($this->container['type'] === '4') {
+            //NormalLink::fillJson($this->container);
 
         } elseif ($this->container['type'] === '5') {
+            //NormalLink::fillJson($this->container);
 
         } elseif ($this->container['type'] === '6') {
+
 
         } elseif ($this->container['type'] === '7') {
 
