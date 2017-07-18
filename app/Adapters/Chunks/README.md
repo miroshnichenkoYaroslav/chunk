@@ -11,6 +11,26 @@
   + 2 - //TODO description
   + 3 - //TODO description
   
-  ### App\Adapters\NormalLink
+  ### App\Adapters\Chunk
   
-  //TODO description
+  **Абстрактный класс с методами**:
+ 
+ Адаптер для чанка(умного элемента), который формирует json, записывая данные в БД.
+ ```php 
+ abstract public function fillJson(array $options): void;
+ ```
+ 
+ Переводит значение в двоичную строку, разбивает строку по символу, переворачивает массив.
+ ```php
+abstract public function complementArray(string $properties): array;
+ ```
+      
+Формирует ассоциативный массив.
+```php
+ abstract public function reformatProperties(array $properties): array;
+```
+
+ ### App\Adapters\Link
+ 
+ Реализует абстрактные методы класса Chunk.
+ //TODO формирует html.
