@@ -2,6 +2,8 @@
 
 namespace App\Adapters\Chunks\ChunkToBlade;
 
+use Psr\Log\InvalidArgumentException;
+
 /**
  * Адаптер для нормальной и мажорной ссылок.
  */
@@ -18,6 +20,9 @@ class Link extends Chunk
      */
     public function fillJson(array $options): void
     {
+        if ($options === null) {
+            throw new InvalidArgumentException('Переданны неверные данные.');
+        }
         $options['properties'] = $this->complementArray($options['properties']);
 
         $options['properties'] = $this->reformatProperties($options['properties']);
@@ -52,14 +57,8 @@ class Link extends Chunk
     {
         return [
             'datePublish' => $properties[0],
-            'addToContent' => $properties[1],
-            'onlyFirstPart' => $properties[2],
-            'not' => [
-                $properties[3],
-                $properties[4],
-                $properties[5],
-                $properties[6]
-            ]
+            'addToContent' => $properties[1] ?? false,
+            'onlyFirstPart' => $properties[2] ?? false,
         ];
     }
 
