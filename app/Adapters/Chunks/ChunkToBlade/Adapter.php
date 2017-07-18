@@ -19,59 +19,63 @@ class Adapter
     protected $container = [];
 
     /**
-     * Adapter constructor.
-     * Переданные данные передаются в метод dataProcessing.
+     * Получает id чанка(умного элемента), инициализирует чанк по id.
      *
-     * @param string $chunk
+     * @param string $chunk - id chunk
+     *
+     * @return void
      */
-    public function __construct($chunk = null)
+    public function init($chunk = null): void
     {
         if ($chunk === null) {
             throw new InvalidArgumentException('Переданны неверные данные.');
         }
 
-        $this->dataProcessing($this->retrievePageData($chunk));
+        $this->dataProcessing($this->retrieveChunkData($chunk));
     }
 
     /**
      * Получение данных с БД о конкретной странице.
      *
-     * @param $page
+     * @param $chunk
      *
      * @return Chunk возвращает модель объекта.
      */
-    public function retrievePageData($page): Chunk
+    public function retrieveChunkData($chunk): Chunk
     {
-        return Chunk::findOrFail($page);
+        return Chunk::findOrFail($chunk);
     }
 
     /**
-     * Определяет тип элемента, если не чанк возвращает столбец `body` из бд,
-     * в котором html, если чанк - возвращает сформированный массив.
+     * Определяет тип элемента, если не чанк возвращает столбец `body`
+     * из бд, в котором html, если чанк - возвращает сформированный массив.
      *
-     * @param $dataPage
+     * @param $chunk - объект.
      *
      * @return array|string
      */
-    public function dataProcessing($dataPage)
+    public function dataProcessing($chunk)
     {
-        $type = $dataPage->type;
 
-        if ($type === 1) {
-            $this->fillContainer($dataPage->body);
+        $type = $chunk->type;
+        if ($type === 0) {
 
+             //TODO записать в бд.
+
+        } elseif ($type === 1) {
+
+            $this->fillContainer($chunk->body);
             $this->transferToTheAdapter();
 
-        } elseif ($type === 0) {
-            return $dataPage->body;
-
         } elseif ($type === 2) {
+
             //TODO для типа 2.
 
         } elseif ($type === 3) {
-            //TODO для типа 3.
 
+            //TODO для типа 3.
         }
+
     }
 
     /**
@@ -102,15 +106,16 @@ class Adapter
     public function transferToTheAdapter(): void
     {
         $this->reformatContainer();
+
         if ($this->container['type'] === '0') {
 
-            $adapter = new Link();
-            $adapter->fillJson($this->container);
+            $link = new Link();
+            $link->fillJson($this->container);
 
         } elseif ($this->container['type'] === '1') {
 
-            $adapter = new Link();
-            $adapter->fillJson($this->container);
+            $link = new Link();
+            $link->fillJson($this->container);
 
         } elseif ($this->container['type'] === '2') {
             PageContents::fillJson($this->container);
@@ -166,5 +171,16 @@ class Adapter
             'file' => $this->container[23] ?? false,
         ];
     }
+
+    /**
+     * Геттер для контейнера, нужен для теста.
+     *
+     * @return array
+     */
+    public function getContainer(): array
+    {
+        return $this->container;
+    }
+
 
 }
