@@ -22,7 +22,7 @@
  
  Переводит значение в двоичную строку, разбивает строку по символу, переворачивает массив.
  ```php
-abstract public function complementArray(string $properties): array;
+public function complementArray(string $properties): array;
  ```
       
 Формирует ассоциативный массив.
