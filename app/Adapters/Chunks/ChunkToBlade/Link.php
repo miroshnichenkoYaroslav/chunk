@@ -23,27 +23,13 @@ class Link extends Chunk
         if ($options === null) {
             throw new InvalidArgumentException('Переданны неверные данные.');
         }
-        $options['properties'] = $this->complementArray($options['properties']);
+
+        $chunk = new Link();
+        $options['properties'] = $chunk->complementArray($options['properties']);
 
         $options['properties'] = $this->reformatProperties($options['properties']);
 
         //TODO генерировать html из готового массива.
-    }
-
-    /**
-     * Переводит значение в двоичную строку, разбивает строку по символу,
-     * переворачивает массив.
-     *
-     * @param string $properties
-     *
-     * @return array
-     */
-    public function complementArray(string $properties): array
-    {
-        $properties = base_convert($properties, 10, 2);
-        $properties = array_reverse(str_split($properties));
-
-        return $properties;
     }
 
     /**
