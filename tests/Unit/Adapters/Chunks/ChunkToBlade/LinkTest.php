@@ -7,6 +7,10 @@ use Tests\TestCase;
 
 class LinkTest extends TestCase
 {
+
+    /**
+     * Автозагрузчик для тестов, инициализуер объект класса Link.
+     */
     public function setUp()
     {
         parent::setUp();

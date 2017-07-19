@@ -11,7 +11,9 @@ class AdapterTest extends TestCase
 {
     use DatabaseMigrations;
 
-
+    /**
+     * Автозагрузчик для тестов, инициализует объект класса Adapter.
+     */
     public function setUp()
     {
         parent::setUp();

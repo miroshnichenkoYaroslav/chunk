@@ -5,8 +5,11 @@ namespace Tests\Unit\Adapters\Chunks\ChunkToBlade;
 use App\Adapters\Chunks\ChunkToBlade\PageContents;
 use Tests\TestCase;
 
-class PageContentTest extends TestCase
+class PageContentsTest extends TestCase
 {
+    /**
+     * Автозагрузчик для тестов, инициализуер объект класса PageContents.
+     */
     public function setUp()
     {
         parent::setUp();
