@@ -16,27 +16,11 @@ class Sitemap extends Chunk
      */
     public function fillJson(array $options): void
     {
-        $options['properties'] = Sitemap::complementArray($options['properties']);
+        $options['properties'] = $this->complementArray($options['properties']);
 
-        $options['properties'] = Sitemap::reformatProperties($options['properties']);
+        $options['properties'] = $this->reformatProperties($options['properties']);
 
         //TODO return|send (json_encode($options) in API
-    }
-
-    /**
-     * Переводит значение в двоичную строку, разбивает строку по символу,
-     * переворачивает массив.
-     *
-     * @param string $properties
-     *
-     * @return array
-     */
-    public function complementArray(string $properties): array
-    {
-        $properties = base_convert($properties, 10, 2);
-        $properties = array_reverse(str_split($properties));
-
-        return $properties;
     }
 
     /**
@@ -54,11 +38,11 @@ class Sitemap extends Chunk
             'number'         => $properties[2],
             'datePublish'    => $properties[3],
             'descOnNewLine'  => $properties[4],
-            'notRootPage'    => $properties[5],
-            'onlyFirstPart'  => $properties[6],
-            'includePages'   => $properties[7],
-            'notIncludeLast' => $properties[8],
-            'shortTitle'     => $properties[9],
+            'notRootPage'    => $properties[5] ?? false,
+            'onlyFirstPart'  => $properties[6] ?? false,
+            'includePages'   => $properties[7] ?? false,
+            'notIncludeLast' => $properties[8] ?? false,
+            'shortTitle'     => $properties[9] ?? false,
         ];
     }
 

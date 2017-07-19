@@ -117,21 +117,23 @@ class Adapter
             $link = new Link();
             $link->fillJson($this->container);
 
-        } elseif ($this->container['type'] === '2') {
+        } elseif ($this->container['type'] === '3') {
 
             $content = new PageContents();
             $content->fillJson($this->container);
 
-        } elseif ($this->container['type'] === '3') {
-            //NormalLink::fillJson($this->container);
-
         } elseif ($this->container['type'] === '4') {
-            //NormalLink::fillJson($this->container);
+
+            $map = new Sitemap();
+            $map->fillJson($this->container);
 
         } elseif ($this->container['type'] === '5') {
             //NormalLink::fillJson($this->container);
 
         } elseif ($this->container['type'] === '6') {
+            //NormalLink::fillJson($this->container);
+
+        } elseif ($this->container['type'] === '7') {
 
 
         } elseif ($this->container['type'] === '7') {
