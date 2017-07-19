@@ -60,7 +60,7 @@ class Adapter
 
         if ($type === 0) {
 
-             //TODO записать в бд.
+             //TODO записать в бд или файлик.
 
         } elseif ($type === 1) {
 
@@ -107,41 +107,35 @@ class Adapter
     {
         $this->reformatContainer();
 
-        if ($this->container['type'] === '0') {
+        $type = $this->container['type'];
+        if ($type === '0' || $type === '1') {
 
             $link = new Link();
             $link->fillJson($this->container);
 
-        } elseif ($this->container['type'] === '1') {
-
-            $link = new Link();
-            $link->fillJson($this->container);
-
-        } elseif ($this->container['type'] === '3') {
+        } elseif ($type === '3') {
 
             $content = new PageContents();
             $content->fillJson($this->container);
 
-        } elseif ($this->container['type'] === '4') {
+        } elseif ($type === '4') {
 
             $map = new Sitemap();
             $map->fillJson($this->container);
 
-        } elseif ($this->container['type'] === '5') {
-            //NormalLink::fillJson($this->container);
+        } elseif ($type === '5') {
 
-        } elseif ($this->container['type'] === '6') {
-            //NormalLink::fillJson($this->container);
+            //TODO записать в бд $this->container['file'] - имя скрипта.
 
-        } elseif ($this->container['type'] === '7') {
+        } elseif ($type === '6' || $type === '7') {
 
+            $catalog = new ProductsCatalog();
+            $catalog->fillJson($this->container);
 
-        } elseif ($this->container['type'] === '7') {
-
-        } elseif ($this->container['type'] === '8') {
-
+        } elseif ($type === '8' || $type === '-1') {
+            //TODO userLink
         } else {
-            //TODO userLink => $type = -1
+            throw new InvalidArgumentException('Получен неверный тип чанка.');
         }
     }
 
