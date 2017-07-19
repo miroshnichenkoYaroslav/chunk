@@ -56,8 +56,8 @@ class Adapter
      */
     public function dataProcessing($chunk)
     {
-
         $type = $chunk->type;
+
         if ($type === 0) {
 
              //TODO записать в бд.
@@ -107,6 +107,7 @@ class Adapter
     {
         $this->reformatContainer();
 
+        $this->container['type'] = '1';
         if ($this->container['type'] === '0') {
 
             $link = new Link();
@@ -118,7 +119,9 @@ class Adapter
             $link->fillJson($this->container);
 
         } elseif ($this->container['type'] === '2') {
-            PageContents::fillJson($this->container);
+
+            $content = new PageContents();
+            $content->fillJson($this->container);
 
         } elseif ($this->container['type'] === '3') {
             //NormalLink::fillJson($this->container);
