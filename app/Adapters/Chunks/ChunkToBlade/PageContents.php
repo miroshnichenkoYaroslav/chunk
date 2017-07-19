@@ -4,10 +4,7 @@ namespace App\Adapters\Chunks\ChunkToBlade;
 
 use Psr\Log\InvalidArgumentException;
 
-/**
- * Адаптер для нормальной и мажорной ссылок.
- */
-class Link extends Chunk
+class PageContents extends Chunk
 {
 
     /**
@@ -36,15 +33,23 @@ class Link extends Chunk
      *
      * @param array $properties
      *
-     * @return array $properties
+     * @return array
      */
     public function reformatProperties(array $properties): array
     {
         return [
             'datePublish' => $properties[0],
-            'addToContent' => $properties[1] ?? false,
-            'onlyFirstPart' => $properties[2] ?? false,
+            'lowerLevel'     => $properties[1],
+            'addTitleItalic' => $properties[2],
+            'onlyFirstPart'  => $properties[3],
+            'not' => [
+                $properties[4] ?? false,
+                $properties[5] ?? false,
+                $properties[6] ?? false,
+            ]
+
         ];
     }
-
 }
+
+
