@@ -2,33 +2,16 @@
 
 namespace Tests\Unit\Adapters\Chunks\ChunkToBlade;
 
-use App\Adapters\Chunks\ChunkToBlade\Link;
+use App\Adapters\Chunks\ChunkToBlade\PageContents;
 use Tests\TestCase;
 
-class LinkTest extends TestCase
+class PageContentTest extends TestCase
 {
     public function setUp()
     {
         parent::setUp();
 
-        $this->link = new Link();
-    }
-    /**
-     * @test
-     */
-    public function it_conversion_of_a_number_to_a_binary_system()
-    {
-        $options = [
-            0 => "1",
-            1 => "1",
-            2 => "0",
-            3 => "1",
-            4 => "1",
-            5 => "0",
-            6 => "1",
-        ];
-
-        $this->assertEquals($options, $this->link->complementArray('91'));
+        $this->content = new PageContents();
     }
 
     /**
@@ -39,11 +22,17 @@ class LinkTest extends TestCase
         $options = [
             0 => "1",
             1 => "1",
+            2 => "0",
+            3 => "1",
+            4 => "0",
+            5 => "0",
+            6 => "0"
         ];
 
-        $this->assertArrayHasKey('datePublish', $this->link->reformatProperties($options));
-        $this->assertArrayHasKey('addToContent', $this->link->reformatProperties($options));
-        $this->assertArrayHasKey('onlyFirstPart', $this->link->reformatProperties($options));
+        $this->assertArrayHasKey('datePublish', $this->content->reformatProperties($options));
+        $this->assertArrayHasKey('lowerLevel', $this->content->reformatProperties($options));
+        $this->assertArrayHasKey('addTitleItalic', $this->content->reformatProperties($options));
+        $this->assertArrayHasKey('onlyFirstPart', $this->content->reformatProperties($options));
+        $this->assertArrayHasKey('not', $this->content->reformatProperties($options));
     }
-
 }
