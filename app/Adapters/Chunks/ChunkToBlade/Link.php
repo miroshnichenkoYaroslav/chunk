@@ -24,8 +24,7 @@ class Link extends Chunk
             throw new InvalidArgumentException('Переданны неверные данные.');
         }
 
-        $chunk = new Link();
-        $options['properties'] = $chunk->complementArray($options['properties']);
+        $options['properties'] = $this->complementArray($options['properties']);
 
         $options['properties'] = $this->reformatProperties($options['properties']);
 
