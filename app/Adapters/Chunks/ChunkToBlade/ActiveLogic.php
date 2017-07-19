@@ -19,20 +19,7 @@ class ActiveLogic extends Chunk
     }
 
     /**
-     * Переводит значение в двоичную строку, разбивает строку по символу,
-     * переворачивает массив.
-     *
-     * @param string $properties
-     *
-     * @return array
-     */
-    public function complementArray(string $properties): array
-    {
-        // TODO: Implement complementArray() method.
-    }
-
-    /**
-     * Формирует ассоциативный массив.
+     * Формирует ассоциативный массив, не используется в классе.
      *
      * @param array $properties
      *
@@ -40,6 +27,6 @@ class ActiveLogic extends Chunk
      */
     public function reformatProperties(array $properties): array
     {
-        // TODO: Implement reformatProperties() method.
+        return [];
     }
 }
