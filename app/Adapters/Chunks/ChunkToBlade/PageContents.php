@@ -2,7 +2,9 @@
 
 namespace App\Adapters\Chunks\ChunkToBlade;
 
-class PageContent extends Chunk
+use Psr\Log\InvalidArgumentException;
+
+class PageContents extends Chunk
 {
 
     /**
@@ -15,20 +17,15 @@ class PageContent extends Chunk
      */
     public function fillJson(array $options): void
     {
+        if ($options === null) {
+            throw new InvalidArgumentException('Переданны неверные данные.');
+        }
 
-    }
+        $options['properties'] = $this->complementArray($options['properties']);
 
-    /**
-     * Переводит значение в двоичную строку, разбивает строку по символу,
-     * переворачивает массив.
-     *
-     * @param string $properties
-     *
-     * @return array
-     */
-    public function complementArray(string $properties): array
-    {
-        // TODO: Implement complementArray() method.
+        $options['properties'] = $this->reformatProperties($options['properties']);
+
+        //TODO генерировать html из готового массива.
     }
 
     /**
@@ -40,6 +37,19 @@ class PageContent extends Chunk
      */
     public function reformatProperties(array $properties): array
     {
-        // TODO: Implement reformatProperties() method.
+        return [
+            'datePublish' => $properties[0],
+            'lowerLevel'     => $properties[1],
+            'addTitleItalic' => $properties[2],
+            'onlyFirstPart'  => $properties[3],
+            'not' => [
+                $properties[4] ?? false,
+                $properties[5] ?? false,
+                $properties[6] ?? false,
+            ]
+
+        ];
     }
 }
+
+
