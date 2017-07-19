@@ -107,7 +107,6 @@ class Adapter
     {
         $this->reformatContainer();
 
-        $this->container['type'] = '1';
         if ($this->container['type'] === '0') {
 
             $link = new Link();
