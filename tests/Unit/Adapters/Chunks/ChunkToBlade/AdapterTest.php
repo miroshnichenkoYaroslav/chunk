@@ -6,6 +6,7 @@ use App\Adapters\Chunks\ChunkToBlade\Adapter;
 use App\Chunk;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Mockery as m;
 
 class AdapterTest extends TestCase
 {
@@ -19,6 +20,12 @@ class AdapterTest extends TestCase
     {
         parent::setUp();
         $this->adapter = new Adapter();
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+        m::close();
     }
     /**
      * @test
