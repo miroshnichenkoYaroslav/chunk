@@ -11,6 +11,7 @@ class AdapterTest extends TestCase
 {
     use DatabaseMigrations;
 
+
     /**
      * Автозагрузчик для тестов, инициализует объект класса Adapter.
      */
