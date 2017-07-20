@@ -32,6 +32,7 @@ class PageContentsTest extends TestCase
             6 => "0"
         ];
 
+        // TODO: вынести все в один метод
         $this->assertArrayHasKey('datePublish', $this->content->reformatProperties($options));
         $this->assertArrayHasKey('lowerLevel', $this->content->reformatProperties($options));
         $this->assertArrayHasKey('addTitleItalic', $this->content->reformatProperties($options));

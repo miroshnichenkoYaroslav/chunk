@@ -24,18 +24,16 @@ class AdapterTest extends TestCase
      */
     public function it_appearance_of_an_exception_with_incorrect_data()
     {
-        $this->expectExceptionMessage('Переданны неверные данные.');
+        $this->expectExceptionMessage('Переданны неверные данные.'); // TODO: заменить на SomeExceptionBlaBla::class
 
         $this->adapter->init();
     }
 
-    /**
-     * @test
-     */
+    /** @test */ // TODO: делать вот так
     public function it_verification_of_receipt_of_data()
     {
         $options = [
-            "pageId" => "0538681A07E04232B31995A17FBC1CBB",
+            "pageId" => "0538681A07E04232B31995A17FBC1CBB", // TODO: заменить на одинарные ковычки
             "type" => "1",
             "properties" => "91",
             "nested" => "1",
@@ -57,7 +55,8 @@ class AdapterTest extends TestCase
             "file" => false,
         ];
         //$adapter = new Adapter();
-        $row = factory(Chunk::class)->create();
+        $row = factory(Chunk::class)->create(); // TODO: переименовать в chunk
+        // $row = create(Chunk::class); TODO: добавить хелперы
 
         $this->adapter->dataProcessing($row);
         $this->assertEquals($options, $this->adapter->getContainer());

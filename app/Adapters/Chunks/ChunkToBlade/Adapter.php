@@ -16,8 +16,9 @@ class Adapter
      *
      * @var array
      */
-    protected $container = [];
+    protected $container = []; // TODO: тупое название
 
+    // TODO: неправильное описание метода
     /**
      * Получает id чанка(умного элемента), инициализирует чанк по id.
      *
@@ -28,10 +29,10 @@ class Adapter
     public function init($chunk = null): void
     {
         if ($chunk === null) {
-            throw new InvalidArgumentException('Переданны неверные данные.');
+            throw new InvalidArgumentException('Переданны неверные данные.'); // TODO: вынести в отдельное исключение
         }
 
-        $this->dataProcessing($this->retrieveChunkData($chunk));
+        $this->dataProcessing($this->retrieveChunkData($chunk)); // TODO: метод олжен делать только одно действие
     }
 
     /**
@@ -41,7 +42,7 @@ class Adapter
      *
      * @return Chunk возвращает модель объекта.
      */
-    public function retrieveChunkData($chunk): Chunk
+    public function retrieveChunkData($chunk): Chunk // TODO: переменовать в find
     {
         return Chunk::findOrFail($chunk);
     }
@@ -86,7 +87,7 @@ class Adapter
      *
      * @return void
      */
-    public function fillContainer($body): void
+    public function fillContainer($body): void // TODO: добавить тип
     {
         $token = strtok($body, "\r\n");
 
@@ -108,6 +109,7 @@ class Adapter
         $this->reformatContainer();
 
         $type = $this->container['type'];
+        // TODO: вынести логику в отдельные методы
         if ($type === '0' || $type === '1') {
 
             $link = new Link();
@@ -120,8 +122,7 @@ class Adapter
 
         } elseif ($type === '4') {
 
-            $map = new Sitemap();
-            $map->fillJson($this->container);
+            $map = new Sitemap($this->container);
 
         } elseif ($type === '5') {
 
@@ -144,7 +145,7 @@ class Adapter
      *
      * @return void
      */
-    public function reformatContainer(): void
+    public function reformatContainer(): void // TODO: название
     {
         $this->container = [
             'pageId' => $this->container[0],
