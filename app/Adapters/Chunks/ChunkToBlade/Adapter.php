@@ -2,8 +2,9 @@
 
 namespace App\Adapters\Chunks\ChunkToBlade;
 
+use App\Adapters\Exceptions\ChunkDoesNotExistException;
+use App\Adapters\Exceptions\ChunkTypeDoesNotExistException;
 use App\Chunk;
-use Psr\Log\InvalidArgumentException;
 
 /**
  * Класс Adapter, получает данные, и передает адаптер,
@@ -28,7 +29,7 @@ class Adapter
     public function run($id = null): void
     {
         if ($id === null) {
-            throw new InvalidArgumentException('Переданны неверные данные.');
+            throw new ChunkDoesNotExistException();
         }
 
         $this->handleType($this->find($id));
@@ -43,7 +44,6 @@ class Adapter
      */
     public function find($chunk): Chunk
     {
-        //TODO записать все в контейнер, кроме body
         return Chunk::findOrFail($chunk);
     }
 
@@ -142,7 +142,7 @@ class Adapter
         } elseif ($type === '8' || $type === '-1') {
             //TODO userLink
         } else {
-            throw new InvalidArgumentException('Получен неверный тип чанка.');
+            throw new ChunkTypeDoesNotExistException($type);
         }
     }
 
