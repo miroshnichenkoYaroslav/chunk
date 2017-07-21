@@ -22,6 +22,13 @@ class Chunk extends Model
     public $timestamps = false;
 
     /**
+     * // TODO
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * переменные для работы с чанками
      *
      * @var array
