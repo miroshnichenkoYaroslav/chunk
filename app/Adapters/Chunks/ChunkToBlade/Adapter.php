@@ -12,27 +12,26 @@ use Psr\Log\InvalidArgumentException;
 class Adapter
 {
     /**
-     * Массив параметров настройки чанка.
+     * Массив параметров настроек чанка.
      *
      * @var array
      */
-    protected $container = []; // TODO: тупое название
+    protected $config = [];
 
-    // TODO: неправильное описание метода
     /**
-     * Получает id чанка(умного элемента), инициализирует чанк по id.
+     * Запускает работу Adapter.
      *
-     * @param string $chunk - id chunk
+     * @param string $id
      *
      * @return void
      */
-    public function init($chunk = null): void
+    public function run($id = null): void
     {
-        if ($chunk === null) {
-            throw new InvalidArgumentException('Переданны неверные данные.'); // TODO: вынести в отдельное исключение
+        if ($id === null) {
+            throw new InvalidArgumentException('Переданны неверные данные.');
         }
 
-        $this->dataProcessing($this->retrieveChunkData($chunk)); // TODO: метод олжен делать только одно действие
+        $this->handleType($this->find($id));
     }
 
     /**
@@ -42,8 +41,9 @@ class Adapter
      *
      * @return Chunk возвращает модель объекта.
      */
-    public function retrieveChunkData($chunk): Chunk // TODO: переменовать в find
+    public function find($chunk): Chunk
     {
+        //TODO записать все в контейнер, кроме body
         return Chunk::findOrFail($chunk);
     }
 
@@ -53,20 +53,23 @@ class Adapter
      *
      * @param $chunk - объект.
      *
-     * @return array|string
+     * @return array|string // TODO пока не до конца ясна структура
      */
-    public function dataProcessing($chunk)
+    public function handleType(Chunk $chunk)
     {
         $type = $chunk->type;
 
         if ($type === 0) {
 
-             //TODO записать в бд или файлик.
+             dd('TODO записать в бд или файлик');
 
         } elseif ($type === 1) {
 
-            $this->fillContainer($chunk->body);
-            $this->transferToTheAdapter();
+            $this->config = $chunk->toArray();
+
+            $this->fillConfigs($chunk->body);
+
+            $this->transfer();
 
         } elseif ($type === 2) {
 
@@ -87,15 +90,19 @@ class Adapter
      *
      * @return void
      */
-    public function fillContainer($body): void // TODO: добавить тип
+    public function fillConfigs(string $body): void
     {
+        $this->config['body'] = [];
+
         $token = strtok($body, "\r\n");
 
         for ($i = 0; $token != ''; $i++) {
-            $this->container[$i] = $token;
+            $this->config['body'][] = $token;
 
             $token = strtok("\r\n");
         }
+
+        $this->reformatConfigs();
     }
 
     /**
@@ -104,25 +111,24 @@ class Adapter
      *
      * @return void
      */
-    public function transferToTheAdapter(): void
+    public function transfer(): void
     {
-        $this->reformatContainer();
+        $type = $this->config['body']['type'];
 
-        $type = $this->container['type'];
-        // TODO: вынести логику в отдельные методы
         if ($type === '0' || $type === '1') {
 
-            $link = new Link();
-            $link->fillJson($this->container);
+            $link = new Link;
+            $this->config['body'] = $link->run($this->config['body']);
 
         } elseif ($type === '3') {
 
-            $content = new PageContents();
-            $content->fillJson($this->container);
+            $content = new PageContents;
+            $this->config['body'] = $content->run($this->config['body']);
 
         } elseif ($type === '4') {
 
-            $map = new Sitemap($this->container);
+            $map = new Sitemap;
+            $this->config['body'] = $map->run($this->config['body']);
 
         } elseif ($type === '5') {
 
@@ -130,8 +136,8 @@ class Adapter
 
         } elseif ($type === '6' || $type === '7') {
 
-            $catalog = new ProductsCatalog();
-            $catalog->fillJson($this->container);
+            $catalog = new ProductsCatalog;
+            $this->config['body'] = $catalog->run($this->config['body']);
 
         } elseif ($type === '8' || $type === '-1') {
             //TODO userLink
@@ -145,41 +151,39 @@ class Adapter
      *
      * @return void
      */
-    public function reformatContainer(): void // TODO: название
+    public function reformatConfigs(): void
     {
-        $this->container = [
-            'pageId' => $this->container[0],
-            'type' => $this->container[1],
-            'properties' => $this->container[2],
-            'nested' => $this->container[3],
-            'allLevelsDown' => $this->container[4],
-            'rowsLimit' => $this->container[5],
-            'order' => $this->container[6],
-            'dateFromCheck' => $this->container[8],
-            'dateToCheck' => $this->container[9],
-            'dateFrom' => $this->container[10],
-            'dateTo' => $this->container[11],
-            'pagination' => $this->container[12],
-            'rowsPerPage' => $this->container[13],
-            'category' => $this->container[17],
-            'linkType' => $this->container[18],
-            'nameLink' => $this->container[19] ?? false,
-            'iconWidth' => $this->container[20] ?? false,
-            'iconHeight' => $this->container[21] ?? false,
-            'listPages' => $this->container[22] ?? false,
-            'file' => $this->container[23] ?? false,
+        $this->config['body'] = [
+            'pageId' => $this->config['body'][0],
+            'type' => $this->config['body'][1],
+            'properties' => $this->config['body'][2],
+            'nested' => $this->config['body'][3],
+            'allLevelsDown' => $this->config['body'][4],
+            'rowsLimit' => $this->config['body'][5],
+            'order' => $this->config['body'][6],
+            'dateFromCheck' => $this->config['body'][8],
+            'dateToCheck' => $this->config['body'][9],
+            'dateFrom' => $this->config['body'][10],
+            'dateTo' => $this->config['body'][11],
+            'pagination' => $this->config['body'][12],
+            'rowsPerPage' => $this->config['body'][13],
+            'category' => $this->config['body'][17],
+            'linkType' => $this->config['body'][18],
+            'nameLink' => $this->config['body'][19] ?? false,
+            'iconWidth' => $this->config['body'][20] ?? false,
+            'iconHeight' => $this->config['body'][21] ?? false,
+            'listPages' => $this->config['body'][22] ?? false,
+            'file' => $this->config['body'][23] ?? false,
         ];
     }
 
     /**
-     * Геттер для контейнера, нужен для теста.
+     * Геттер для контейнера параметров, нужен для теста.
      *
      * @return array
      */
-    public function getContainer(): array
+    public function getConfig(): array
     {
-        return $this->container;
+        return $this->config;
     }
-
-
 }
