@@ -8,26 +8,31 @@ namespace App\Adapters\Chunks\ChunkToBlade;
 class Sitemap extends Chunk
 {
 
-    // TODO: ыфва
-    public function __construct (array $options = []) {
-        // $options = $this->prepareOptions($options)
-        $this-fillJson($options);
-    }
-
     /**
-     *  Адаптер для карты сайта, формирует json, и записывает в БД.
+     * Запускаем работу Sitemap.
      *
      * @param array $options
      *
-     * @return void
+     * @return string
      */
-    public function fillJson(array $options): void // TODO: придумать нормальное название
+    public function run(array $options): string
     {
-        $tmp = $this->complementArray($options['properties']); // TODO: переименовать переменную
+        $bits = $this->retrieveBits($options['properties']);
+        $options['properties'] = $this->reformat($bits);
 
-        $options['properties'] = $this->reformatProperties($tmp);
+        return $this->toJson($options);
+    }
 
-        //TODO return|send (json_encode($options) in API
+    /**
+     *  Формирует json.
+     *
+     * @param array $options
+     *
+     * @return string
+     */
+    public function toJson(array $options): string
+    {
+        return json_encode($options);
     }
 
     /**
@@ -37,7 +42,7 @@ class Sitemap extends Chunk
      *
      * @return array
      */
-    public function reformatProperties(array $properties): array
+    public function reformat(array $properties): array
     {
         return [
             'description'    => $properties[0],
