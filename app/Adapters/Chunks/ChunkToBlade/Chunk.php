@@ -3,21 +3,20 @@
 namespace App\Adapters\Chunks\ChunkToBlade;
 
 // TODO: поправить описание
+
 /**
  * Класс, в котором реализован метод fillJson.
  */
 abstract class Chunk
 {
-    // TODO: тупое описание
     /**
-     *  Адаптер для чанка(умного элемента), который формирует json,
-     *  записывая данные в БД.
+     * Формирует json.
      *
      * @param array $options
      *
-     * @return void
+     * @return string
      */
-    abstract public function fillJson(array $options): void;
+    abstract public function toJson(array $options): string;
 
     /**
      * Формирует ассоциативный массив.
@@ -26,7 +25,7 @@ abstract class Chunk
      *
      * @return array
      */
-    abstract public function reformatProperties(array $properties): array;
+    abstract public function reformat(array $properties): array;
 
     /**
      * Переводит значение в двоичную строку, разбивает строку по символу,
@@ -36,7 +35,7 @@ abstract class Chunk
      *
      * @return array
      */
-    public function complementArray(string $properties): array // TODO: нормальное название метода
+    public function retrieveBits(string $properties): array
     {
         $properties = base_convert($properties, 10, 2);
 
