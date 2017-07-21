@@ -18,12 +18,11 @@ class SitemapTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         $this->map = new Sitemap();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_get_reformatted_array()
     {
         $options = [
@@ -35,15 +34,21 @@ class SitemapTest extends TestCase
             5 => "0",
         ];
 
-        $this->assertArrayHasKey('description', $this->map->reformatProperties($options));
-        $this->assertArrayHasKey('list', $this->map->reformatProperties($options));
-        $this->assertArrayHasKey('number', $this->map->reformatProperties($options));
-        $this->assertArrayHasKey('datePublish', $this->map->reformatProperties($options));
-        $this->assertArrayHasKey('descOnNewLine', $this->map->reformatProperties($options));
-        $this->assertArrayHasKey('notRootPage', $this->map->reformatProperties($options));
-        $this->assertArrayHasKey('onlyFirstPart', $this->map->reformatProperties($options));
-        $this->assertArrayHasKey('includePages', $this->map->reformatProperties($options));
-        $this->assertArrayHasKey('notIncludeLast', $this->map->reformatProperties($options));
-        $this->assertArrayHasKey('shortTitle', $this->map->reformatProperties($options));
+        $expected = [
+            'description',
+            'list',
+            'number',
+            'datePublish',
+            'descOnNewLine',
+            'notRootPage',
+            'onlyFirstPart',
+            'includePages',
+            'notIncludeLast',
+            'shortTitle'
+        ];
+
+        $actual = array_keys($this->map->reformat($options));
+
+        $this->assertEquals($expected, $actual);
     }
 }

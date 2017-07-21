@@ -17,9 +17,8 @@ class LinkTest extends TestCase
 
         $this->link = new Link();
     }
-    /**
-     * @test
-     */
+
+    /** @test */
     public function it_conversion_of_a_number_to_a_binary_system()
     {
         $options = [
@@ -32,12 +31,10 @@ class LinkTest extends TestCase
             6 => "1",
         ];
 
-        $this->assertEquals($options, $this->link->complementArray('91'));
+        $this->assertEquals($options, $this->link->retrieveBits('91'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_get_reformatted_array()
     {
         $options = [
@@ -45,9 +42,15 @@ class LinkTest extends TestCase
             1 => "1",
         ];
 
-        $this->assertArrayHasKey('datePublish', $this->link->reformatProperties($options));
-        $this->assertArrayHasKey('addToContent', $this->link->reformatProperties($options));
-        $this->assertArrayHasKey('onlyFirstPart', $this->link->reformatProperties($options));
+        $expected = [
+            'datePublish',
+            'addToContent',
+            'onlyFirstPart'
+        ];
+
+        $actual = array_keys($this->link->reformat($options));
+
+        $this->assertEquals($expected, $actual);
     }
 
 }
