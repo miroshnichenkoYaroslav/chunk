@@ -2,30 +2,37 @@
 
 namespace App\Adapters\Chunks\ChunkToBlade;
 
-use Psr\Log\InvalidArgumentException;
-
+/**
+ * Адаптер для карты сайта.
+ */
 class PageContents extends Chunk
 {
 
     /**
-     *  Адаптер для чанка(умного элемента), который формирует json,
-     *  записывая данные в БД.
+     * Запускает работу PageContents.
      *
      * @param array $options
      *
-     * @return void
+     * @return string
      */
-    public function fillJson(array $options): void
+    public function run(array $options): string
     {
-        if ($options === null) {
-            throw new InvalidArgumentException('Переданны неверные данные.');
-        }
+        $bits = $this->retrieveBits($options['properties']);
+        $options['properties'] = $this->reformat($bits);
 
-        $options['properties'] = $this->complementArray($options['properties']);
+        return $this->toJson($options);
+    }
 
-        $options['properties'] = $this->reformatProperties($options['properties']);
-
-        //TODO генерировать html из готового массива.
+    /**
+     *  Формирует json.
+     *
+     * @param array $options
+     *
+     * @return string
+     */
+    public function toJson(array $options): string
+    {
+        return json_encode($options);
     }
 
     /**
@@ -35,7 +42,7 @@ class PageContents extends Chunk
      *
      * @return array
      */
-    public function reformatProperties(array $properties): array
+    public function reformat(array $properties): array
     {
         return [
             'datePublish' => $properties[0],
