@@ -17,9 +17,7 @@ class PageContentsTest extends TestCase
         $this->content = new PageContents();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_get_reformatted_array()
     {
         $options = [
@@ -32,11 +30,16 @@ class PageContentsTest extends TestCase
             6 => "0"
         ];
 
-        // TODO: вынести все в один метод
-        $this->assertArrayHasKey('datePublish', $this->content->reformatProperties($options));
-        $this->assertArrayHasKey('lowerLevel', $this->content->reformatProperties($options));
-        $this->assertArrayHasKey('addTitleItalic', $this->content->reformatProperties($options));
-        $this->assertArrayHasKey('onlyFirstPart', $this->content->reformatProperties($options));
-        $this->assertArrayHasKey('not', $this->content->reformatProperties($options));
+        $expected = [
+            'datePublish',
+            'lowerLevel',
+            'addTitleItalic',
+            'onlyFirstPart',
+            'not'
+        ];
+
+        $actual = array_keys($this->content->reformat($options));
+
+        $this->assertEquals($expected, $actual);
     }
 }

@@ -7,6 +7,9 @@ use Tests\TestCase;
 
 class ProductsCatalogTest extends TestCase
 {
+    /**
+     * Инициализация экземпляра класса ProductsCatalog.
+     */
     public function setUp()
     {
         parent::setUp();
@@ -14,9 +17,7 @@ class ProductsCatalogTest extends TestCase
         $this->catalog = new ProductsCatalog();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_get_reformatted_array()
     {
         $options = [
@@ -29,12 +30,18 @@ class ProductsCatalogTest extends TestCase
             6 => "0"
         ];
 
-        $this->assertArrayHasKey('allowPrice', $this->catalog->reformatProperties($options));
-        $this->assertArrayHasKey('submitButton', $this->catalog->reformatProperties($options));
-        $this->assertArrayHasKey('multiOrder', $this->catalog->reformatProperties($options));
-        $this->assertArrayHasKey('oldPrice', $this->catalog->reformatProperties($options));
-        $this->assertArrayHasKey('withoutPrice', $this->catalog->reformatProperties($options));
-        $this->assertArrayHasKey('zeroBalance', $this->catalog->reformatProperties($options));
-        $this->assertArrayHasKey('userChoice', $this->catalog->reformatProperties($options));
+        $expected = [
+            'allowPrice',
+            'submitButton',
+            'multiOrder',
+            'oldPrice',
+            'withoutPrice',
+            'zeroBalance',
+            'userChoice'
+        ];
+
+        $actual = array_keys($this->catalog->reformat($options));
+
+        $this->assertEquals($expected, $actual);
     }
 }
