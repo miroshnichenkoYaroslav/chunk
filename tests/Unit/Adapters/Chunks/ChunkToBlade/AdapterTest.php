@@ -4,11 +4,9 @@ namespace Tests\Unit\Adapters\Chunks\ChunkToBlade;
 
 use App\Adapters\Chunks\ChunkToBlade\Adapter;
 use App\Adapters\Exceptions\ChunkDoesNotExistException;
-use App\Adapters\Exceptions\ChunkTypeDoesNotExistException;
 use App\Chunk;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Mockery as m;
 
 class AdapterTest extends TestCase
 {
@@ -24,15 +22,6 @@ class AdapterTest extends TestCase
         $this->adapter = new Adapter();
     }
 
-    /**
-     * Моки.
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        m::close();
-    }
-
     /** @test */
     public function it_appearance_of_an_exception_with_incorrect_data()
     {
@@ -45,23 +34,23 @@ class AdapterTest extends TestCase
     public function it_verification_of_receipt_of_data()
     {
         $options = [
-           'pageId' => '0538681A07E04232B31995A17FBC1CBB',
+           'pageId' => '0B395229691F49ADB8454984CA818F45',
            'type' => '1',
             'properties' => [
-                'datePublish' => '1',
-                'addToContent' => '1',
-                'onlyFirstPart' =>'0'
+                'datePublish' => '0',
+                'addToContent' => false,
+                'onlyFirstPart' => false
             ],
-           'nested' => '1',
+           'nested' => '0',
            'allLevelsDown' => '0',
            'rowsLimit' => '0',
            'order' => '0',
            'dateFromCheck' => '0',
            'dateToCheck' => '0',
-           'dateFrom' => '13.05.2013',
-           'dateTo' => '13.05.2013',
-           'pagination' => '1',
-           'rowsPerPage' => '2',
+           'dateFrom' => '30.04.2013',
+           'dateTo' => '30.04.2013',
+           'pagination' => '0',
+           'rowsPerPage' => '0',
            'category' => '0',
            'linkType' => '0',
            'nameLink' => false,
