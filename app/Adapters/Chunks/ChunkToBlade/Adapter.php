@@ -5,6 +5,7 @@ namespace App\Adapters\Chunks\ChunkToBlade;
 use App\Adapters\Exceptions\ChunkDoesNotExistException;
 use App\Adapters\Exceptions\ChunkTypeDoesNotExistException;
 use App\Chunk;
+use App\ReChunk;
 
 /**
  * Класс Adapter, получает данные, и передает адаптер,
@@ -119,6 +120,7 @@ class Adapter
 
             $link = new Link;
             $this->config['body'] = $link->run($this->config['body']);
+            $this->save();
 
         } elseif ($type === '3') {
 
@@ -175,6 +177,20 @@ class Adapter
             'listPages' => $this->config['body'][22] ?? false,
             'file' => $this->config['body'][23] ?? false,
         ];
+    }
+
+    /**
+     * Сохранение адаптированный параметров чанка в базу данных.
+     *
+     * @return void
+     */
+    public function save(): void
+    {
+        if (ReChunk::find($this->config['id'])){
+            ReChunk::where('id', $this->config['id'])->update($this->config);
+        } else {
+            ReChunk::create($this->config);
+        }
     }
 
     /**
