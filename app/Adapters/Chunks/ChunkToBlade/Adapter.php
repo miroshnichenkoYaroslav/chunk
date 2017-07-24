@@ -64,7 +64,6 @@ class Adapter
              dd('TODO записать в бд или файлик');
 
         } elseif ($type === 1) {
-
             $this->config = $chunk->toArray();
 
             $this->fillConfigs($chunk->body);
@@ -101,7 +100,6 @@ class Adapter
 
             $token = strtok("\r\n");
         }
-
         $this->reformatConfigs();
     }
 
