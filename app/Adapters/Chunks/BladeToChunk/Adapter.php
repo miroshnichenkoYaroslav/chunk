@@ -32,10 +32,11 @@ class Adapter
     public function run($id = null): void
     {
         if ($id === null) {
-            throw new ChunkDoesNotExistException($id);
+            throw new ChunkDoesNotExistException();
         }
 
         $this->reformat($this->find($id));
+
         $this->save();
     }
 
@@ -58,7 +59,7 @@ class Adapter
      *
      * @return void
      */
-    public function reformat($chunk): void
+    public function reformat(ReChunk $chunk): void
     {
         $this->config = $chunk->toArray();
         $this->config['body'] = $this->toString($chunk->body);
@@ -67,11 +68,11 @@ class Adapter
     /**
      * Преобразует json массив параметров чанков в строку.
      *
-     * @param $options
+     * @param string $options
      *
      * @return string
      */
-    public function toString($options): string
+    public function toString(string $options): string
     {
         $options = json_decode($options, true);
         $options['properties'] = $this->translate($options['properties']);
@@ -90,7 +91,7 @@ class Adapter
      *
      * @return int
      */
-    public function translate($properties): int
+    public function translate(array $properties): int
     {
         $properties = implode(array_reverse($properties));
 
