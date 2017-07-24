@@ -39,6 +39,7 @@ class AdapterTest extends TestCase
         $this->expectException(ChunkDoesNotExistException::class);
 
         $this->adapter->run();
+
     }
 
     /** @test */
