@@ -4,6 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $body
+ * @property int $site_id
+ * @property int $type
+ */
 class ReChunk extends Model
 {
     /**
