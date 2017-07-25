@@ -23,6 +23,19 @@ class AdapterTest extends TestCase
     }
 
     /** @test */
+    public function it_the_existence_of_attribute_a_config()
+    {
+        $this->assertClassHasAttribute('config', Adapter::class);
+    }
+
+    /** @test */
+    public function it_the_existence_of_methods()
+    {
+        $this->assertTrue(method_exists($this->adapter, 'run'));
+        $this->assertTrue(method_exists($this->adapter, 'find'));
+    }
+
+    /** @test */
     public function it_appearance_of_an_exception_with_incorrect_data()
     {
         $this->expectException(ChunkDoesNotExistException::class);
