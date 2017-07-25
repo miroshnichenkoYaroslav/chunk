@@ -18,6 +18,14 @@ class ProductsCatalogTest extends TestCase
     }
 
     /** @test */
+    public function it_the_existence_of_methods()
+    {
+        $this->assertTrue(method_exists($this->catalog, 'run'));
+        $this->assertTrue(method_exists($this->catalog, 'toJson'));
+        $this->assertTrue(method_exists($this->catalog, 'reformat'));
+    }
+
+    /** @test */
     public function it_get_reformatted_array()
     {
         $options = [
