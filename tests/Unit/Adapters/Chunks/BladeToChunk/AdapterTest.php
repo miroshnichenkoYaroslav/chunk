@@ -58,6 +58,8 @@ class AdapterTest extends TestCase
         $chunk = create(Chunk::class);
         $rechunk = create(ReChunk::class);
 
+        // если не работает тест нужно:
+        // ModelFactory => изменить Line Separator на Windows('\r\n')
         $this->assertEquals($chunk->body, $this->adapter->toString($rechunk->body));
     }
 }
