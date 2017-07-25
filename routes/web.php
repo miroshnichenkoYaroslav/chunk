@@ -12,11 +12,16 @@
 */
 
 use App\Adapters\Chunks\ChunkToBlade\Adapter;
+use App\Adapters\Chunks\BladeToChunk\Adapter as reAdapter;
+
 
 Route::get('/', function () {
 
-    $chunk = new Adapter();
-    $chunk->run('0481E31883BA4F199ABB5DD19A4B0169');
+    $chunk = new Adapter;
+    //$chunk->run('testA29E38A8447FEAE5F5809B7E77390');
+
+    $reChunk = new reAdapter;
+    $reChunk->run('testA29E38A8447FEAE5F5809B7E77390');
 
     return view('welcome');
 });
@@ -25,5 +30,13 @@ Route::get('/form', function () {
     return view('chunks.form');
 });
 Route::get('/chunk/{chunk}', 'ChunksController@test');
+
+
+
+
+
+
+
+
 
 

@@ -18,6 +18,14 @@ class PageContentsTest extends TestCase
     }
 
     /** @test */
+    public function it_the_existence_of_methods()
+    {
+        $this->assertTrue(method_exists($this->content, 'run'));
+        $this->assertTrue(method_exists($this->content, 'toJson'));
+        $this->assertTrue(method_exists($this->content, 'reformat'));
+    }
+
+    /** @test */
     public function it_get_reformatted_array()
     {
         $options = [
@@ -42,4 +50,6 @@ class PageContentsTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+
 }

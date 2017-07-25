@@ -23,6 +23,19 @@ class AdapterTest extends TestCase
     }
 
     /** @test */
+    public function it_the_existence_of_attribute_a_config()
+    {
+        $this->assertClassHasAttribute('config', Adapter::class);
+    }
+
+    /** @test */
+    public function it_the_existence_of_methods()
+    {
+        $this->assertTrue(method_exists($this->adapter, 'run'));
+        $this->assertTrue(method_exists($this->adapter, 'find'));
+    }
+
+    /** @test */
     public function it_appearance_of_an_exception_with_incorrect_data()
     {
         $this->expectException(ChunkDoesNotExistException::class);
@@ -45,6 +58,8 @@ class AdapterTest extends TestCase
         $chunk = create(Chunk::class);
         $rechunk = create(ReChunk::class);
 
+        // если не работает тест нужно:
+        // ModelFactory => изменить Line Separator на Windows('\r\n')
         $this->assertEquals($chunk->body, $this->adapter->toString($rechunk->body));
     }
 }

@@ -19,6 +19,14 @@ class LinkTest extends TestCase
     }
 
     /** @test */
+    public function it_the_existence_of_methods()
+    {
+        $this->assertTrue(method_exists($this->link, 'run'));
+        $this->assertTrue(method_exists($this->link, 'toJson'));
+        $this->assertTrue(method_exists($this->link, 'reformat'));
+    }
+
+    /** @test */
     public function it_conversion_of_a_number_to_a_binary_system()
     {
         $options = [

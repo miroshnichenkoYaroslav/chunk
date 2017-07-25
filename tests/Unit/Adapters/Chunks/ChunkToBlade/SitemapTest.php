@@ -23,6 +23,14 @@ class SitemapTest extends TestCase
     }
 
     /** @test */
+    public function it_the_existence_of_methods()
+    {
+        $this->assertTrue(method_exists($this->map, 'run'));
+        $this->assertTrue(method_exists($this->map, 'toJson'));
+        $this->assertTrue(method_exists($this->map, 'reformat'));
+    }
+
+    /** @test */
     public function it_get_reformatted_array()
     {
         $options = [
