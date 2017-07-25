@@ -30,6 +30,30 @@ class AdapterTest extends TestCase
         $this->adapter->run();
     }
 
+    public function it_the_existence_of_attribute_a_config()
+    {
+        $this->assertClassHasAttribute('config', Adapter::class);
+    }
+
+    /** @test */
+    public function it_the_existence_of_methods()
+    {
+        $this->assertTrue(method_exists($this->adapter,
+            'run'));
+        $this->assertTrue(method_exists($this->adapter,
+            'find'));
+        $this->assertTrue(method_exists($this->adapter,
+            'handleType'));
+        $this->assertTrue(method_exists($this->adapter,
+            'fillConfigs'));
+        $this->assertTrue(method_exists($this->adapter,
+            'transfer'));
+        $this->assertTrue(method_exists($this->adapter,
+            'reformatConfigs'));
+        $this->assertTrue(method_exists($this->adapter,
+            'save'));
+    }
+
     /** @test */
     public function it_verification_of_receipt_of_data()
     {
