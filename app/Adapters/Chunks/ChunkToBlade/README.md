@@ -7,7 +7,7 @@
 
 #### Adapter
 
-В конструктор должен быть передан id страницы, по которому получаются данные, 
+В него должен быть передан id страницы, по которому получаются данные, 
 со всеми параметрами о странице, если тип элемента на странице равен:
  
   + **0** - возвращается html-код c поля `body`;
@@ -26,19 +26,19 @@
  Абстрактный класс, наследники которого должны будут реализовать такие методы:
  
  ```php 
- abstract public function fillJson(array $options): void;
+ abstract public function toJson(array $options): void;
  ```
  Адаптер для чанка(умного элемента), который формирует json, записывая данные в БД.
 
  
  ```php
-public function complementArray(string $properties): array;
+public function retrieveBits(string $properties): array;
  ```
  Переводит значение в двоичную строку, разбивает строку по символу, переворачивает массив.
 
       
 ```php
- abstract public function reformatProperties(array $properties): array;
+ abstract public function reformat(array $properties): array;
 ```
 Формирует ассоциативный массив.
 
